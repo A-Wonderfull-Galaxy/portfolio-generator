@@ -1,5 +1,3 @@
-const { fstat } = require("fs");
-
 //create the about sectino
 const generateAbout = aboutText => {
   if(!aboutText){
@@ -12,25 +10,6 @@ const generateAbout = aboutText => {
       <p>${aboutText}</p>
     </section>  
   `;
-};
-
-const writeFile = fileContent => {
-  return new Promise((resolve,reject) => {
-    fs.writeFile('./dist/index.html', fileContent, err => {
-      //if theres an error, reject the promise and send the error to the promises `.catch()` method
-      if(err) {
-        reject(err);
-        //return out of the function here to make sure the Promise doesnt accidentally execute the resolve() function as well
-        return;
-      }
-
-      //if everything went well, resolve the promise and send the successful data to the `.then()` method
-      resolve({
-        ok: true,
-        message: 'File created!'
-      });
-    }); 
-  });
 };
 
 //create the project section
@@ -81,7 +60,7 @@ const generateProjects = projectsArr => {
 module.exports = templateData => {
   // this will create three variables based on data in templateData
   //destructure page data by section
-  const { project,about, ...header } = templateData;
+  const { projects,about, ...header } = templateData;
 
   return`
   <!DOCTYPE html> 
@@ -109,7 +88,7 @@ module.exports = templateData => {
 
     <main class="container my-5">
     ${generateAbout(about)}
-    ${generateProjects(about)}
+    ${generateProjects(projects)}
 
     </main>
     
@@ -121,5 +100,3 @@ module.exports = templateData => {
   </html>
   `;
 };
-
-module.exports = {writeFile, copyFile} = require('./utils/generate-site.js')
