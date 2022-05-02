@@ -129,8 +129,7 @@ const promptProject = portfolioData => {
 promptUser()
     .then(promptProject)
     .then(portfolioData => {
-        console.log(portfolioData);
-        // const pageHTML = generatePage(name, github);
+        const pageHTML = generatePage(portfolioData);
         // fs.writeFile('./index.html', pageHTML, err => {
         //     if (err) throw err;
           
